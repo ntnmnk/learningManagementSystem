@@ -1,21 +1,24 @@
 package com.learning.learningmanagementsystem.models;
 
-import org.springframework.data.annotation.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import java.util.*;
+
+import jakarta.persistence.*;
 import lombok.Data;
 
 
+
 @Entity
+@Table(name = "Exams")
 @Data
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String examId;
-    // Define relationships and other fields here
+    @ManyToOne
+    private Subject subject;
 
-    // Getters and setters
+    @ManyToMany(mappedBy = "exams")
+    private List<Student> enrolledStudents=new ArrayList<>();
+
 }

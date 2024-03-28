@@ -37,3 +37,4 @@ replay_pid*
 /.idea/
 /.vscode/
 
+.gradle/
