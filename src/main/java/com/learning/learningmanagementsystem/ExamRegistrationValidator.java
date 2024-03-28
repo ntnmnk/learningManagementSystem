@@ -17,39 +17,25 @@ import com.learning.learningmanagementsystem.repositories.SubjectRepository;
 
 @Component
 public class ExamRegistrationValidator {
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private ExamRepository examRepository;
-
-    @HandleBeforeCreate
-    @HandleBeforeSave
-    public void validateExamRegistration(Exam exam) {
-        // Retrieve the subject associated with the exam
-        Subject subject = exam.getSubject();
-        if (subject == null) {
-            throw new IllegalStateException("Exam must be associated with a subject");
+    public boolean validateRegistration(Long studentId, Long examId) {
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        if (!studentOptional.isPresent()) {
+            return false; // Student not found
         }
 
-        // Retrieve the students enrolled in the subject
-       // List<Student> enrolledStudents = student.getEnrolledStudents();
+        Student student = studentOptional.get();
+        Optional<Exam> examOptional = student.getSubjects().stream()
+                .flatMap(subject -> subject.getExams().stream()
+                        .filter(e -> e.getId().equals(examId)))
+                .findFirst();
 
-        // Retrieve the students enrolling for the exam
-        List<Student> registeredStudentsForExam = exam.getEnrolledStudents();
-
-        // Check if each student enrolling for the exam is already enrolled in the corresponding subject
-        // for (Student student : registeredStudentsForExam) {
-        //     if (!enrolledStudents.contains(student)) {
-        //         throw new IllegalStateException("Student must be enrolled in the subject before registering for the exam");
-        //     }
-        // }
+        return examOptional.isPresent();  // Check if exam belongs to a subject student is enrolled in
     }
 }
+
 
 
 

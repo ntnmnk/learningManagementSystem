@@ -16,9 +16,9 @@ public class Exam {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "subject_id")
     private Subject subject;
 
     @ManyToMany(mappedBy = "exams")
-    private List<Student> enrolledStudents=new ArrayList<>();
-
+    private List<Student> students=new ArrayList<>();
 }

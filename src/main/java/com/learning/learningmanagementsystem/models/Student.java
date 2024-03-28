@@ -15,17 +15,20 @@ public class Student {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_subject",
-               joinColumns = @JoinColumn(name = "student_id"),
-               inverseJoinColumns = @JoinColumn(name = "subject_id"))
-
+    @ManyToMany
+    // @JoinTable(
+    //     name = "student_subject",
+    //     joinColumns = @JoinColumn(name = "subject_id"),  
+    //     inverseJoinColumns = @JoinColumn(name = "student_id",nullable = true)
+    // )
     private List<Subject> subjects=new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_exam",
-               joinColumns = @JoinColumn(name = "student_id"),
-               inverseJoinColumns = @JoinColumn(name = "exam_id"))
-
+    
+    // @JoinTable(
+    //     name = "student_exam",
+    //     joinColumns = @JoinColumn(name = "exam_id"),
+    //     inverseJoinColumns = @JoinColumn(name = "student_id",nullable = true)
+    // )
     private List<Exam> exams=new ArrayList<>();
 }

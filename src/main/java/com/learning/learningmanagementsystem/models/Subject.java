@@ -21,15 +21,16 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(unique = true,nullable=false)
     private String subjectId;
 
     private String name;
 
-    @OneToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects")
     private List<Student> registeredStudents=new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(mappedBy = "subject")
     private List<Exam> exams= new ArrayList<>();
 
 }

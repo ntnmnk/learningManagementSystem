@@ -22,7 +22,7 @@ public class ExamRepositoryListener {
 
     @HandleBeforeSave
     public void validateStudentEnrollment(Exam exam) {
-        Long studentId = exam.getEnrolledStudents().stream()
+        Long studentId = exam.getStudents().stream()
                 .findFirst()
                 .map(Student::getId)
                 .orElseThrow(() -> new IllegalStateException("Exam has no enrolled students"));
@@ -32,7 +32,7 @@ public class ExamRepositoryListener {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + studentId));
 
-        // Validate that the student is enrolled in the corresponding subject of the exam
+       
         if (!student.getSubjects().stream().anyMatch(subject -> subject.getId().equals(subjectId))) {
             throw new IllegalStateException("Student is not enrolled in the corresponding subject for the exam");
         }
