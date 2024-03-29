@@ -10,22 +10,20 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class EasterEggController {
 
-    @Autowired
-    private RestTemplate restTemplate;
+  @Autowired
+  private RestTemplate restTemplate;
 
-    @GetMapping("/hidden-feature/{number}")
-    public String getEasterEgg(@PathVariable int number) {
-        
-        
+  @GetMapping("/hidden-feature/{number}")
+  public String getEasterEgg(@PathVariable int number) {
+    ResponseEntity<String> response = restTemplate.getForEntity(
+      "http://numbersapi.com/" + number,
+      String.class
+    );
 
-       
-        ResponseEntity<String> response = restTemplate.getForEntity("http://numbersapi.com/" + number, String.class);
-
-       
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response.getBody();
-        } else {
-            return "Failed to fetch random fact from Numbers API";
-        }
+    if (response.getStatusCode().is2xxSuccessful()) {
+      return response.getBody();
+    } else {
+      return "Failed to fetch random fact from Numbers API";
     }
+  }
 }

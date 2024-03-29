@@ -27,19 +27,19 @@
 //     @Autowired
 //     private MockMvc mockMvc;
 
-//     @Test
-//     public void testGetAllStudents() throws Exception {
-//         mockMvc.perform(MockMvcRequestBuilders.get("/students")
-//                 .contentType(MediaType.APPLICATION_JSON))
-//                 .andExpect(MockMvcResultMatchers.status().isOk())
-//                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students").isArray())
-//                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students.length()").value(2))
-//                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[0].registrationId").value("12345"))
-//                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[0].name").value("John Doe"))
-//                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[1].registrationId").value("12346"))
-//                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[1].name").value("John Doe"))
-//                 .andDo(print()); // Print response for debugging
-//     }
+//     // @Test
+//     // public void testGetAllStudents() throws Exception {
+//     //     mockMvc.perform(MockMvcRequestBuilders.get("/students")
+//     //             .contentType(MediaType.APPLICATION_JSON))
+//     //             .andExpect(MockMvcResultMatchers.status().isOk())
+//     //             .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students").isArray())
+//     //             .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students.length()").value(2))
+//     //             .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[0].registrationId").value("12345"))
+//     //             .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[0].name").value("John Doe"))
+//     //             .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[1].registrationId").value("12346"))
+//     //             .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.students[1].name").value("John Doe"))
+//     //             .andDo(print()); // Print response for debugging
+//     // }
 
 
 

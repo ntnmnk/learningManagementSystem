@@ -9,9 +9,9 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource(path = "students")
 public interface StudentRepository extends JpaRepository<Student, Long> {
-  @Override
-  @RestResource(exported = false) // Disable default DELETE mapping
-  void deleteById(Long id);
+  // @Override
+  // @RestResource(exported = false) // Disable default DELETE mapping
+  // void deleteById(Long id);
 
   Optional<Student>  findByName(@Param("name") String name);
 }
