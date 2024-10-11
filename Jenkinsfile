@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from your GitHub repository
-                git branch: 'master', url: 'https://github.com/ntnmnk/learningManagementSystem.git'
+                git branch: 'main', url: 'https://github.com/ntnmnk/learningManagementSystem.git'
             }
         }
 
