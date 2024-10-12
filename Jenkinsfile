@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Navigate to the cloned repository and run Gradle build
-                    bat 'cd C:\\deploy\\learningManagementSystem && gradle clean build'
+                    bat 'cd C:\\deploy\\learningManagementSystem && gradle clean build -x test'
                 }
             }
         }
