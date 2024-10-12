@@ -1,40 +1,48 @@
 pipeline {
-    agent any // Use any available agent; specify a Windows agent if needed
+    agent any
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from your GitHub repository
-                git branch: 'main', url: 'https://github.com/ntnmnk/learningManagementSystem.git'
+                script {
+                    // Clone the repository into the local directory
+                    bat 'cd C:\\deploy && git clone https://github.com/ntnmnk/learningManagementSystem.git'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                // Use the Gradle Wrapper to build your project
-                bat './gradlew clean build' // Use 'mvn clean install' if using Maven
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Run tests using Gradle
-                bat './gradlew test' // Use 'mvn test' if using Maven
+                script {
+                    // Navigate to the cloned repository and run Gradle build
+                    bat 'cd C:\\deploy\\learningManagementSystem && gradle clean build'
+                }
             }
         }
 
         stage('Package') {
             steps {
-                // Package the application using Gradle
-                bat './gradlew bootJar' // Use 'mvn package' if using Maven
+                script {
+                    // Find the JAR file matching the pattern "learningManagementSystem-*-SNAPSHOT.jar" in the build/libs directory
+                    bat 'cd C:\\deploy\\learningManagementSystem\\build\\libs && dir /B learningManagementSystem-*-SNAPSHOT.jar > jarname.txt'
+
+                    // Read the JAR name from the file
+                    def jarName = readFile('C:\\deploy\\learningManagementSystem\\build\\libs\\jarname.txt').trim()
+
+                    echo "Found JAR: ${jarName}"
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                // Use WinSCP to copy the JAR file to your Windows server
-                // Make sure WinSCP is installed and accessible in your PATH
-                bat 'winscp.com /command "open scp://your-username@192.168.140.215" "put build/libs/*.jar C:\\" "exit"'
+                script {
+                    // Deploy the application by running the JAR file on localhost
+                    def jarName = readFile('C:\\deploy\\learningManagementSystem\\build\\libs\\jarname.txt').trim()
+                    
+                    // Run the JAR using java -jar
+                    bat "cd C:\\deploy\\learningManagementSystem\\build\\libs && java -jar ${jarName}"
+                }
             }
         }
     }
