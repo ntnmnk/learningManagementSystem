@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     // Assuming the JAR name will follow the pattern 'learningManagementSystem-0.0.1-SNAPSHOT.jar'
-                    def jarName = 'learningManagementSystem-0.0.1-SNAPSHOT.jar'
+                    def jarName = 'learning-management-system-0.0.1-SNAPSHOT.jar'
 
                     // Verify the JAR exists
                     bat "cd C:\\deploy\\learningManagementSystem\\build\\libs && if not exist ${jarName} exit 1"
