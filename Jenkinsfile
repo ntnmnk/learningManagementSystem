@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Navigate to the cloned repository and run Gradle build
+                    // Navigate to the cloned repository and run Gradle build, skipping tests
                     bat 'cd C:\\deploy\\learningManagementSystem && gradle clean build -x test'
                 }
             }
@@ -23,12 +23,11 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    // Find the JAR file matching the pattern "learningManagementSystem-*-SNAPSHOT.jar" in the build/libs directory
-                    bat 'cd C:\\deploy\\learningManagementSystem\\build\\libs && dir /B learningManagementSystem-*-SNAPSHOT.jar > jarname.txt'
+                    // Assuming the JAR name will follow the pattern 'learningManagementSystem-0.0.1-SNAPSHOT.jar'
+                    def jarName = 'learningManagementSystem-0.0.1-SNAPSHOT.jar'
 
-                    // Read the JAR name from the file
-                    def jarName = readFile('C:\\deploy\\learningManagementSystem\\build\\libs\\jarname.txt').trim()
-
+                    // Verify the JAR exists
+                    bat "cd C:\\deploy\\learningManagementSystem\\build\\libs && if not exist ${jarName} exit 1"
                     echo "Found JAR: ${jarName}"
                 }
             }
@@ -37,9 +36,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Deploy the application by running the JAR file on localhost
-                    def jarName = readFile('C:\\deploy\\learningManagementSystem\\build\\libs\\jarname.txt').trim()
-                    
+                    // Deploy the application by running the JAR file
+                    def jarName = 'learningManagementSystem-0.0.1-SNAPSHOT.jar'
+
                     // Run the JAR using java -jar
                     bat "cd C:\\deploy\\learningManagementSystem\\build\\libs && java -jar ${jarName}"
                 }
