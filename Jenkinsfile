@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Deploy the application by running the JAR file
-                    def jarName = 'learningManagementSystem-0.0.1-SNAPSHOT.jar'
+                    def jarName = 'learning-management-system-0.0.1-SNAPSHOT.jar'
 
                     // Run the JAR using java -jar
                     bat "cd C:\\deploy\\learningManagementSystem\\build\\libs && java -jar ${jarName}"
